@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx create-next-app@latest site --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install *)",
+      "Bash(mkdir -p public/icons public/images components/ui components/layout components/sections components/shared content lib)",
+      "Bash(cp \"../HORIZYN - LOGO/HORIZYN - LOGO.svg\" public/logo.svg)",
+      "Bash(cp \"../HORIZYN - LOGO/HORIZYN - LOGO WHITE.png\" public/logo-white.png)",
+      "Bash(cp \"../HORIZYN - LOGO/HORIZYN - LOGO BLACK.png\" public/logo-black.png)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)"
+    ]
+  }
+}
