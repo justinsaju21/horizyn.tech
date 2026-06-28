@@ -43,13 +43,16 @@ export function Navbar() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 h-16",
-          "bg-bg-base/80 backdrop-blur-md",
-          "border-b transition-colors duration-200",
-          scrolled ? "border-border" : "border-border-subtle"
+          "fixed z-40 h-16 transition-all duration-300 left-1/2 -translate-x-1/2",
+          scrolled 
+            ? "top-4 w-[calc(100%-2rem)] max-w-5xl rounded-full bg-bg-surface/90 border border-border shadow-lg backdrop-blur-md"
+            : "top-0 w-full bg-bg-base/80 border-b border-border-subtle backdrop-blur-md"
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 h-full flex items-center justify-between">
+        <div className={cn(
+          "mx-auto h-full flex items-center justify-between transition-all duration-300",
+          scrolled ? "px-6 md:px-8 w-full" : "max-w-7xl px-6 md:px-8 lg:px-12 w-full"
+        )}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Horizon Tech Consulting — Home">
             <Image

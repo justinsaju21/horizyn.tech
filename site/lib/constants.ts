@@ -4,6 +4,7 @@ export const SITE_DESCRIPTION =
   "Horizon Tech builds custom AI-integrated software from the ground up — so you own it, control it, and it actually fits how your business works.";
 
 export const NAV_LINKS = [
+  { label: "Home",      href: "/"          },
   { label: "Services",  href: "/services"  },
   { label: "Solutions", href: "/solutions" },
   { label: "Work",      href: "/work"      },

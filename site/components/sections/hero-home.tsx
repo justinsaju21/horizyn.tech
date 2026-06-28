@@ -1,115 +1,83 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
-import { stagger, fadeUp, fadeIn } from "@/lib/animations";
+import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { stagger, fadeUp } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import { BOOKING_URL } from "@/lib/constants";
 
-/** Home page hero — bg-grid + scan-lines + radial glow + gradient headline word. */
+/** Home page hero — Tinder-style layout adapted for both light and dark modes. */
 export function HeroHome() {
   const shouldReduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  
+  // Parallax for the content block
+  const yContent = useTransform(scrollY, [0, 600], [0, 80]);
+  const opacityContent = useTransform(scrollY, [0, 400], [1, 0]);
 
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center scan-lines bg-bg-base overflow-hidden"
+      className="relative min-h-[100svh] flex flex-col items-center justify-center bg-bg-base overflow-hidden transition-colors duration-300"
       aria-label="Hero"
     >
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-grid pointer-events-none z-0" aria-hidden="true" />
-
-      {/* Radial accent glow */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(99,179,237,0.10) 0%, transparent 70%)",
-        }}
-      />
+      {/* Background Image: Diagonal Grid Collage */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/tinder-bg.png"
+          alt="Dashboard collage"
+          fill
+          priority
+          className="object-cover opacity-50 scale-105"
+        />
+        {/* Dynamic vignette so text pops in both light and dark modes */}
+        <div className="absolute inset-0 bg-bg-base/70 transition-colors duration-300" />
+        <div 
+          className="absolute inset-0 transition-colors duration-300"
+          style={{ background: "radial-gradient(ellipse at center, transparent 0%, var(--bg-base) 100%)" }}
+        />
+      </div>
 
       {/* Content */}
       <motion.div
         variants={shouldReduce ? {} : stagger}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-32 md:py-40 flex flex-col items-center text-center"
+        style={shouldReduce ? {} : { y: yContent, opacity: opacityContent }}
+        className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8 pt-20 pb-32 flex flex-col items-center text-center justify-center h-full"
       >
-        {/* Eyebrow badge */}
-        <motion.div variants={shouldReduce ? {} : fadeIn} className="mb-6">
-          <span
-            className={cn(
-              "inline-block font-mono text-xs tracking-widest text-accent uppercase",
-              "bg-accent-dim border border-border-accent px-4 py-1.5 rounded-full"
-            )}
-          >
-            AI-Integrated Custom Software
-          </span>
-        </motion.div>
-
-        {/* Headline */}
+        {/* Massive Centered Typography */}
         <motion.h1
           variants={shouldReduce ? {} : fadeUp}
-          className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight text-text-primary max-w-4xl mb-6"
+          className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-bold tracking-tight leading-[1.05] text-text-primary mb-10 drop-shadow-xl"
         >
-          Software built for{" "}
-          <span className="gradient-text">your</span>{" "}
-          workflow.{" "}
-          <br className="hidden md:block" />
-          Not adapted to it.
+          Software built for your workflow.
         </motion.h1>
 
-        {/* Subheadline */}
-        <motion.p
-          variants={shouldReduce ? {} : fadeUp}
-          className="text-xl text-text-secondary max-w-2xl leading-normal mb-10"
-        >
-          Horizon Tech builds custom AI-integrated software from the ground up — so you
-          own it, control it, and it actually fits how your business works.
-        </motion.p>
-
-        {/* CTAs */}
+        {/* Vibrant Gradient CTA Button */}
         <motion.div
           variants={shouldReduce ? {} : fadeUp}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex justify-center w-full"
         >
           <Link
             href={BOOKING_URL}
             className={cn(
-              "inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium",
-              "bg-accent text-text-inverted",
-              "hover:brightness-110 shadow-glow transition-all duration-150"
+              "inline-flex items-center justify-center px-10 py-4 rounded-full text-lg font-bold tracking-wide",
+              "bg-gradient-to-r from-rose-400 to-red-500 text-white",
+              "hover:scale-105 shadow-[0_4px_20px_rgba(244,63,94,0.4)] transition-transform duration-200"
             )}
           >
             Book a Discovery Call
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-          <Link
-            href="/work"
-            className={cn(
-              "inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium",
-              "border border-border-strong text-text-primary",
-              "hover:bg-bg-surface hover:border-border-accent transition-colors duration-150"
-            )}
-          >
-            See Our Work
           </Link>
         </motion.div>
-      </motion.div>
-
-      {/* Scroll hint */}
-      <motion.div
-        initial={shouldReduce ? {} : { opacity: 0, y: -4 }}
-        animate={shouldReduce ? {} : { opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        aria-hidden="true"
-      >
-        <ChevronDown
-          size={20}
-          className="text-text-muted animate-bounce"
-        />
+        
+        {/* Subtle subheadline */}
+        <motion.p
+          variants={shouldReduce ? {} : fadeUp}
+          className="text-sm md:text-base text-text-secondary max-w-lg mt-8 font-medium drop-shadow-sm"
+        >
+          Not adapted to it. We build custom AI-integrated software from the ground up so you own it, control it, and it actually fits how your business works.
+        </motion.p>
       </motion.div>
     </section>
   );
