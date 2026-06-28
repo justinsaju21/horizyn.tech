@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+/* ─── Runtime Theme Variables ─────────────────────────────────── */
+
+:root {
+  /* Dark theme (default) */
+  --bg-base:     #0A0A0B;
+  --bg-surface:  #111113;
+  --bg-elevated: #1A1A1E;
+  --bg-subtle:   #16161A;
+
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(99, 179, 237, 0.30);
+
+  --text-primary:   #F0F0F2;
+  --text-secondary: #9B9BA8;
+  --text-muted:     #5C5C6B;
+  --text-inverted:  #0A0A0B;
+
+  --accent:      #63B3ED;
+  --accent-dim:  rgba(99, 179, 237, 0.12);
+  --accent-glow: rgba(99, 179, 237, 0.20);
+
+  --success: #4ADE80;
+  --warning: #FACC15;
+  --error:   #F87171;
+}
+
+.light {
+  --bg-base:     #FAFAFA;
+  --bg-surface:  #FFFFFF;
+  --bg-elevated: #F4F4F6;
+  --bg-subtle:   #F0F0F3;
+
+  --border:        rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --border-accent: rgba(49, 130, 206, 0.30);
+
+  --text-primary:   #0F0F10;
+  --text-secondary: #52526A;
+  --text-muted:     #9090A0;
+  --text-inverted:  #FFFFFF;
+
+  --accent:      #3182CE;
+  --accent-dim:  rgba(49, 130, 206, 0.10);
+  --accent-glow: rgba(49, 130, 206, 0.18);
+
+  --success: #16A34A;
+  --warning: #CA8A04;
+  --error:   #DC2626;
+}
+
+/* ─── Tailwind Theme Mapping ──────────────────────────────────── */
+
+@theme inline {
+  /* Fonts */
+  --font-display: var(--font-geist);
+  --font-sans:    var(--font-inter);
+  --font-mono:    var(--font-jetbrains);
+
+  /* Backgrounds */
+  --color-bg-base:     var(--bg-base);
+  --color-bg-surface:  var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-subtle:   var(--bg-subtle);
+
+  /* Borders */
+  --color-border:        var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-border-accent: var(--border-accent);
+
+  /* Text */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+  --color-text-inverted:  var(--text-inverted);
+
+  /* Accent */
+  --color-accent:      var(--accent);
+  --color-accent-dim:  var(--accent-dim);
+  --color-accent-glow: var(--accent-glow);
+
+  /* Semantic */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error:   var(--error);
+
+  /* Shadows */
+  --shadow-card:   0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-raised: 0 4px 16px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-glow:   0 0 24px var(--accent-glow);
+
+  /* Border radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scan Lines Signature ────────────────────────────────────── */
+/* Used a maximum of TWO times across the entire site */
+
+.scan-lines {
+  position: relative;
+}
+
+.scan-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.015) 3px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  animation: scan-pulse 4s ease-in-out infinite;
+}
+
+@keyframes scan-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* ─── Background Grid ─────────────────────────────────────────── */
+
+.bg-grid {
+  background-image: radial-gradient(
+    circle, rgba(255,255,255,0.04) 1px, transparent 1px
+  );
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+/* ─── Accent Gradient Text ────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    #90CDF4 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Focus Ring ──────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Skip Navigation ─────────────────────────────────────────── */
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--text-inverted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 100;
+  transition: top 0.1s;
+}
+
+.skip-nav:focus {
+  top: 0;
+}
