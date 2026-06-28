@@ -30,7 +30,7 @@ export function CtaBanner({
   return (
     <section
       className={cn(
-        "py-24 md:py-32 bg-gradient-to-b from-bg-base to-bg-subtle relative overflow-hidden",
+        "py-24 md:py-32 bg-bg-base border-t border-border-subtle relative overflow-hidden",
         className
       )}
       aria-label="Call to action"

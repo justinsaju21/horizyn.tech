@@ -45,8 +45,8 @@ export function Navbar() {
         className={cn(
           "fixed z-40 h-16 transition-all duration-300 left-1/2 -translate-x-1/2",
           scrolled 
-            ? "top-4 w-[calc(100%-2rem)] max-w-5xl rounded-full bg-bg-surface/90 border border-border shadow-lg backdrop-blur-md"
-            : "top-0 w-full bg-bg-base/80 border-b border-border-subtle backdrop-blur-md"
+            ? "top-4 w-[calc(100%-2rem)] max-w-5xl rounded-full bg-bg-surface border border-border shadow-lg"
+            : "top-0 w-full bg-bg-base border-b border-border-subtle"
         )}
       >
         <div className={cn(

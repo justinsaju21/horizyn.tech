@@ -63,8 +63,8 @@ export function HeroHome() {
             href={BOOKING_URL}
             className={cn(
               "inline-flex items-center justify-center px-10 py-4 rounded-full text-lg font-bold tracking-wide",
-              "bg-gradient-to-r from-rose-400 to-red-500 text-white",
-              "hover:scale-105 shadow-[0_4px_20px_rgba(244,63,94,0.4)] transition-transform duration-200"
+              "bg-accent text-white border border-accent/20",
+              "hover:brightness-110 shadow-[0_4px_24px_var(--color-accent-glow)] transition-all duration-200 hover:-translate-y-1"
             )}
           >
             Book a Discovery Call
