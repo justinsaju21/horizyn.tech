@@ -52,6 +52,7 @@ export function HeroHome() {
           className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-bold tracking-tight leading-[1.05] text-text-primary mb-10 drop-shadow-xl"
         >
           Software built for your workflow.
+          <span className="block text-text-muted mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-[5rem]">Not adapted to it.</span>
         </motion.h1>
 
         {/* Vibrant Gradient CTA Button */}
@@ -76,7 +77,7 @@ export function HeroHome() {
           variants={shouldReduce ? {} : fadeUp}
           className="text-sm md:text-base text-text-secondary max-w-lg mt-8 font-medium drop-shadow-sm"
         >
-          Not adapted to it. We build custom AI-integrated software from the ground up so you own it, control it, and it actually fits how your business works.
+          We build custom AI-integrated software from the ground up so you own it, control it, and it actually fits how your business works.
         </motion.p>
       </motion.div>
     </section>
