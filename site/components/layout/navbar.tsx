@@ -8,6 +8,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS, BOOKING_URL } from "@/lib/constants";
+import { BookingModal } from "@/components/shared/booking-modal";
 import { ThemeToggle } from "./theme-toggle";
 import { useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -16,6 +17,7 @@ export function Navbar() {
   const pathname  = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const shouldReduce            = useReducedMotion();
   const { theme }               = useTheme();
   const [mounted, setMounted]   = useState(false);
@@ -35,6 +37,11 @@ export function Navbar() {
   }, [open]);
 
   const logoSrc = mounted && theme === "light" ? "/logo-black.png" : "/logo-white.png";
+
+  const handleBookingClick = () => {
+  setOpen(false);
+  setModalOpen(true);
+};
 
   return (
     <>
@@ -91,18 +98,18 @@ export function Navbar() {
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Link
-              href={BOOKING_URL}
-              className={cn(
-                "inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium",
-                "bg-accent text-text-inverted",
-                "hover:brightness-110 transition-all duration-150",
-                "shadow-[0_0_0_0_var(--accent-glow)] hover:shadow-glow"
-              )}
-            >
+          <button
+            onClick={handleBookingClick}
+            className={cn(
+              "inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium",
+              "bg-accent text-text-inverted",
+              "hover:brightness-110 transition-all duration-150",
+              "shadow-[0_0_0_0_var(--accent-glow)] hover:shadow-glow"
+            )}
+          >
               Book a Call
               <ArrowRight size={14} aria-hidden="true" />
-            </Link>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -152,7 +159,7 @@ export function Navbar() {
               })}
               <div className="pt-6">
                 <Link
-                  href={BOOKING_URL}
+                  href="/contact"
                   onClick={() => setOpen(false)}
                   className={cn(
                     "inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-md text-base font-medium",
@@ -167,6 +174,7 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

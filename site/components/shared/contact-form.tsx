@@ -6,6 +6,7 @@ import { z } from "zod";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const schema = z.object({
   name:        z.string().min(2, "Please enter your name"),
@@ -13,6 +14,10 @@ const schema = z.object({
   email:       z.string().email("Please enter a valid email address"),
   description: z.string().min(20, "Please describe your project in at least 20 characters"),
   budget:      z.string().min(1, "Please select a budget range"),
+  consentGiven: z.boolean().refine((val) => val === true, {
+    message: "You must accept the privacy policy",
+  }),
+
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -145,6 +150,35 @@ export function ContactForm() {
         </select>
         {errors.budget && <p className={errorClass}>{errors.budget.message}</p>}
       </div>
+
+      <div className="flex items-start gap-2 pt-1">
+      <input
+        id="consentGiven"
+        type="checkbox"
+        className="mt-0.5 h-4 w-4 rounded border-border accent-accent shrink-0"
+        {...register("consentGiven")}
+      />
+
+      <label
+        htmlFor="consentGiven"
+        className="text-xs text-text-secondary leading-snug"
+      >
+        I agree to the{" "}
+        <Link
+          href="/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline hover:no-underline"
+        >
+          Privacy Policy
+        </Link>{" "}
+        and consent to my data being processed as described.
+      </label>
+    </div>
+
+    {errors.consentGiven && (
+      <p className={errorClass}>{errors.consentGiven.message}</p>
+    )}
 
       <button
         type="submit"
